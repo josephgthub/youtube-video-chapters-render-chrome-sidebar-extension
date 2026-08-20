@@ -210,7 +210,7 @@ async function extractChaptersfromgemini(description, duration) {
   if (!description || typeof description !== 'string' || !duration || typeof duration !== 'number') return [];
 
 
-    const apiKey = 'AIzaSyCEbUA2626eZDHjZXGQSVk-Aqa3E_BEhBw';
+    const apiKey = 'API Key';
     const prompt = `
 Extract chapters from this Text. 
 Give the chapters like this neatly:

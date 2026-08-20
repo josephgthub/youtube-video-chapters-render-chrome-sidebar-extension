@@ -12,9 +12,9 @@ https://github.com/user-attachments/assets/74dfffa3-b77b-440f-9b9d-c4351dcea5e0
   - YouTube's auto-generated chapters
   - AI-generated chapters (where available)
 - **Custom chapters** — paste your own chapters (e.g., copied from a comment) and have them rendered instantly
-- **Clickable navigation** — each chapter has a progress bar; click anywhere on it to seek to that point in the video
-- **Sync** — keep chapters in sync with the current video
-- **History** — quickly revisit chapters from previously watched videos
+- **Clickable navigation** — the current chapter has a progress bar; click anywhere on it to seek to that point in the video
+- **Sync** — keep chapters in sync with the current timestamp
+- **History** — quickly revisit previously watched videos
 - **Search** — find a specific chapter by keyword instead of scrolling
 
 ## Installation

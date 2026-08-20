@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Google Gemini API Test</title>
+<style>
+  body {
+    background: #121212;
+    color: #eee;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  label {
+    display: block;
+    margin: 15px 0 5px;
+  }
+  input, textarea, button {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: none;
+    font-size: 1rem;
+  }
+  input, textarea {
+    background: #222;
+    color: #eee;
+    resize: vertical;
+  }
+  button {
+    background: #0f62fe;
+    color: white;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+  #output {
+    margin-top: 20px;
+    white-space: pre-wrap;
+    background: #222;
+    padding: 15px;
+    border-radius: 6px;
+    min-height: 100px;
+  }
+</style>
+</head>
+<body>
+
+<h2>Google Gemini API Test</h2>
+
+<label for="apiKey">Gemini API Key</label>
+<input type="text" id="apiKey" placeholder="Paste your Gemini API key here" />
+
+<label for="prompt">Prompt</label>
+<textarea id="prompt" rows="4" placeholder="Enter prompt here (e.g. Extract chapters from this text)"></textarea>
+
+<button id="sendBtn">Send to Gemini</button>
+
+<div id="output"></div>
+
+<script>
+  const sendBtn = document.getElementById("sendBtn");
+  const output = document.getElementById("output");
+
+  sendBtn.onclick = async () => {
+    const apiKey = document.getElementById("apiKey").value.trim();
+    const prompt = document.getElementById("prompt").value.trim();
+    if (!apiKey || !prompt) {
+      output.textContent = "Please enter both API key and prompt.";
+      return;
+    }
+    output.textContent = "Loading...";
+
+    try {
+      const res = await fetch("https://generativelanguage.googleapis.com/v1beta/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: "gemini-1.5-flash",
+          messages: [{ role: "user", content: prompt }],
+          temperature: 0.7
+        })
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error?.message || res.statusText);
+      }
+
+      const data = await res.json();
+      const reply = data.choices?.[0]?.message?.content || "No reply";
+      output.textContent = reply;
+    } catch (e) {
+      output.textContent = "Error: " + e.message;
+    }
+  };
+</script>
+
+</body>
+</html>
